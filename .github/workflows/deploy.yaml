@@ -1,16 +1,17 @@
 name: Build and Deploy to GKE
 
+
 on:
   push:
     branches:
       - main
 
 env:
-  PROJECT_ID: ${{ my-devops-team-404512 }}
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: cluster-1   # Add your cluster name here.
   GKE_ZONE: us-central1   # Add your cluster zone here.
   DEPLOYMENT_NAME: monigan-api # Add your deployment name here.
-  IMAGE: monigan-api
+  IMAGE: monigan-api 
 
 jobs:
   setup-build-publish-deploy:
