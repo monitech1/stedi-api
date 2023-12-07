@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monigan-api
+spec:
+  replicas: 3  
+  selector:
+    matchLabels:
+      app: monigan-api
+  template:
+    metadata:
+      labels:
+        app: monigan-api
+    spec:
+      containers:
+      - name: monigan-api
+        image: us-docker.pkg.dev/april-2023-online-cit-262/monigan-api/api-tests
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "0.5"
+        ports:
+        - containerPort: 3000
