@@ -6,11 +6,11 @@ on:
       - main
 
 env:
-  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  PROJECT_ID: ${{ my-devops-team-404512 }}
   GKE_CLUSTER: cluster-1   # Add your cluster name here.
   GKE_ZONE: us-central1   # Add your cluster zone here.
-  DEPLOYMENT_NAME: Monigan-api # Add your deployment name here.
-  IMAGE: ernest-api
+  DEPLOYMENT_NAME: monigan-api # Add your deployment name here.
+  IMAGE: monigan-api
 
 jobs:
   setup-build-publish-deploy:
@@ -36,7 +36,6 @@ jobs:
     # helper for authentication
     - run: |-
         gcloud --quiet auth configure-docker us-docker.pkg.dev
-
     - uses: 'google-github-actions/auth@v1'
       with:
         credentials_json: ${{ secrets.GKE_SA_KEY }}
@@ -57,12 +56,10 @@ jobs:
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
           .
-
     # Push the Docker image to Google Container Registry
     - name: Publish
       run: |-
         docker push "us-docker.pkg.dev/my-devops-team-404512/monigan-api/stedi-api:latest"
-
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
       run: |-
